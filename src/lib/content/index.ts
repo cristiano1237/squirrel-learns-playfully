@@ -1,61 +1,36 @@
-import { mathContent, mathLessons } from './math';
-import { scienceContent } from './science';
-import { languagesContent } from './languages';
+import { enhancedMathContent, enhancedMathLessons } from './enhanced-math';
+import { enhancedScienceContent, enhancedScienceLessons } from './enhanced-science';
+import { enhancedLanguagesContent, enhancedLanguagesLessons } from './enhanced-languages';
+
+// Export enhanced content
+export { enhancedMathContent as mathContent, enhancedMathLessons as mathLessons, enhancedScienceContent as scienceContent, enhancedLanguagesContent as languagesContent };
 import { Subject, Grade, Question, Lesson } from '@/types/game';
 
-// Export all content
-export { mathContent, mathLessons, scienceContent, languagesContent };
 
 // Helper functions to get content
 export function getSubjectContent(subject: Subject): { [key in Grade]: Question[] } {
   switch (subject) {
     case 'math':
-      return mathContent;
+      return enhancedMathContent;
     case 'science':
-      return scienceContent;
+      return enhancedScienceContent;
     case 'languages':
-      return languagesContent;
+      return enhancedLanguagesContent;
     default:
-      return mathContent;
+      return enhancedMathContent;
   }
 }
 
 export function getSubjectLessons(subject: Subject, grade: Grade): Lesson[] {
   switch (subject) {
     case 'math':
-      return mathLessons[grade] || [];
+      return enhancedMathLessons[grade] || [];
     case 'science':
-      // For demo, return math structure but with science content
-      return [{
-        id: `science-${grade}-basics`,
-        title: `Science Basics - ${grade.replace('-', ' ').toUpperCase()}`,
-        description: 'Explore the wonders of science!',
-        subject: 'science',
-        grade,
-        difficulty: grade.includes('class-4') || grade.includes('class-5') || grade.includes('class-6') ? 'hard' : 
-                   grade.includes('class-2') || grade.includes('class-3') ? 'medium' : 'easy',
-        questions: scienceContent[grade] || [],
-        estimatedTime: 20,
-        xpReward: 50,
-        acornReward: 10
-      }];
+      return enhancedScienceLessons[grade] || [];
     case 'languages':
-      // For demo, return math structure but with language content
-      return [{
-        id: `languages-${grade}-basics`,
-        title: `Language Skills - ${grade.replace('-', ' ').toUpperCase()}`,
-        description: 'Master words and communication!',
-        subject: 'languages',
-        grade,
-        difficulty: grade.includes('class-4') || grade.includes('class-5') || grade.includes('class-6') ? 'hard' : 
-                   grade.includes('class-2') || grade.includes('class-3') ? 'medium' : 'easy',
-        questions: languagesContent[grade] || [],
-        estimatedTime: 15,
-        xpReward: 40,
-        acornReward: 8
-      }];
+      return enhancedLanguagesLessons[grade] || [];
     default:
-      return mathLessons[grade] || [];
+      return enhancedMathLessons[grade] || [];
   }
 }
 

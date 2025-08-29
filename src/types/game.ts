@@ -2,7 +2,7 @@ export type Grade = 'pre-k' | 'kg' | 'class-1' | 'class-2' | 'class-3' | 'class-
 
 export type Subject = 'math' | 'science' | 'languages';
 
-export type QuestionType = 'multiple-choice' | 'drag-drop' | 'fill-blank' | 'true-false' | 'sequence' | 'match-pairs';
+export type QuestionType = 'multiple-choice' | 'drag-drop' | 'fill-blank' | 'true-false' | 'sequence' | 'match-pairs' | 'drawing' | 'tap-sequence' | 'bubble-pop' | 'memory-match' | 'word-builder' | 'math-puzzle' | 'science-lab' | 'story-order';
 
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
@@ -29,6 +29,20 @@ export interface Question {
   };
   imageUrl?: string;
   audioUrl?: string;
+  interactiveElements?: {
+    dragItems?: { id: string; text: string; category: string }[];
+    dropZones?: { id: string; label: string; accepts: string[] }[];
+    drawingCanvas?: { width: number; height: number; tools: string[] };
+    bubbles?: { id: string; value: string; position: { x: number; y: number } }[];
+    sequence?: { id: string; text: string; order: number }[];
+    memoryCards?: { id: string; value: string; pair: string }[];
+    animations?: { type: string; trigger: string; duration: number }[];
+  };
+  timerDuration?: number;
+  minigameConfig?: {
+    type: 'bubble-shooter' | 'memory' | 'puzzle' | 'drawing';
+    settings: Record<string, any>;
+  };
 }
 
 export interface Lesson {
